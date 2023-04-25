@@ -46,24 +46,32 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="header">
-        <div className="back_to_list" onClick={() => setOpenForm(false)}>
-          <HiArrowLeft /> View Entries
-        </div>
-        <button
-          className="add-entry"
-          onClick={() => {
-            setOpenForm(true);
-            setValues({
-              name: "",
-              sectors: [],
-              agree_to_terms: false,
-            });
-          }}
-        >
-          New Entry
-        </button>
+        {openForm ? (
+          <div className="back_to_list" onClick={() => setOpenForm(false)}>
+            <HiArrowLeft /> View Entries
+          </div>
+        ) : (
+          <div></div>
+        )}
+        {openForm ? (
+          <div></div>
+        ) : (
+          <button
+            className="add-entry"
+            onClick={() => {
+              setOpenForm(true);
+              setValues({
+                name: "",
+                sectors: [],
+                agree_to_terms: false,
+              });
+            }}
+          >
+            New Entry
+          </button>
+        )}
       </div>
       {openForm ? (
         <Create

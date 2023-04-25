@@ -1,4 +1,6 @@
+import Multiselect from "multiselect-react-dropdown";
 import React from "react";
+import sectors from "../sectors";
 
 const Create = ({ values, handleInputchange, handleSubmit }) => {
   return (
@@ -17,15 +19,24 @@ const Create = ({ values, handleInputchange, handleSubmit }) => {
           </div>
           <div className="single-input">
             <label htmlFor="sectors">Sectors</label>
-            <input
+            {/* <input
               id="sectors"
               type="text"
               required
               value={values?.sectors}
               onChange={(e) => handleInputchange("sectors", e.target.value)}
+            /> */}
+            <Multiselect
+              isObject={false}
+              onKeyPressFn={function noRefCheck() {}}
+              onRemove={(newValue) => handleInputchange("sectors", newValue)}
+              onSearch={function noRefCheck() {}}
+              onSelect={(newValue) => handleInputchange("sectors", newValue)}
+              options={sectors}
+              selectedValues={values?.sectors}
             />
           </div>
-          <div className="single-input terms">
+          <div className="single-input-terms">
             <input
               type="checkbox"
               id="terms"
@@ -37,7 +48,13 @@ const Create = ({ values, handleInputchange, handleSubmit }) => {
             />
             <label htmlFor="terms">Agree to terms</label>
           </div>
-          <input type="submit" value="Add" />
+          <input
+            disabled={
+              !values.name || !values.agree_to_terms || !values.sectors.length
+            }
+            type="submit"
+            value={values?.id ? "Update" : "Add"}
+          />
         </div>
       </form>
     </div>
